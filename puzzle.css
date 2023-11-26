@@ -1,3 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #353333;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: pink;
+}
+
+#button-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#play-game-btn,
+#puzzle-size {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px; 
+}
+
+#play-game-btn:hover,
+#puzzle-size:hover {
+    background-color: #ff6699; 
+}
+
 #puzzle-container {
     width: 400px;
     height: 400px;
@@ -5,15 +43,27 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 5px;
+    transition: transform 1s ease-in-out;
 }
 
 .tile {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4CAF50;
-    color: white;
+    background-color: rgb(58, 58, 217);
+    color: whitesmoke;
     font-size: 24px;
     font-weight: bold;
-    cursor: pointer;
+    cursor: grab;
+    border-radius: 10px;
+}
+
+.tile.in-right-area {
+    background-color: pink; 
+    color: whitesmoke;
+}
+
+.tile.empty {
+    background-color: #1e1e8a;
+    border-radius: 10px;
 }
