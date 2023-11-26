@@ -178,6 +178,7 @@ h1 {
     padding: 10px 20px;
     font-size: 18px;
     color: white;
+    background-color: #ff4500;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -188,3 +189,4 @@ h1 {
 #cheat-btn:hover {
     background-color: #ff6699;
 }
+
