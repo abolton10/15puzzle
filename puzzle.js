@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Cheat Button 
     const cheat = () => {
         tiles = Array.from({ length: puzzleSize * puzzleSize }, (_, i) => i);
+        emptyIndex = puzzleSize * puzzleSize - 1;
         updateTiles();
     };
 
