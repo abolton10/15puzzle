@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         puzzleSize = parseInt(puzzleSizeSelect.value, 10);
         emptyIndex = puzzleSize * puzzleSize - 1;
         createTiles();
+        cheatBtn.style.display = 'block';
     };
 
     const shuffleArray = array => {
