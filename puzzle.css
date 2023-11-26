@@ -67,3 +67,11 @@ h1 {
     background-color: #1e1e8a;
     border-radius: 10px;
 }
+.moveCount {
+    text-align: center;
+    color:pink;
+    font-size: 2em;
+    margin-top: 10px;
+    font-weight: bolder;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
