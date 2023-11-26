@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const playGameBtn = document.getElementById('play-game-btn');
     const puzzleSizeSelect = document.getElementById('puzzle-size');
     const buttonContainer = document.getElementById('button-container');
+    const cheatBtn = document.getElementById('cheat-btn');
 
     let puzzleSize = 4;
     let tiles = [];
@@ -93,6 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
         moveCountElement.textContent = `Moves: ${moveCount}`;
     };
 
+    //Cheat Button 
+    const cheat = () => {
+        tiles = Array.from({ length: puzzleSize * puzzleSize }, (_, i) => i);
+        updateTiles();
+    };
+
     playGameBtn.addEventListener('click', createTiles);
     puzzleSizeSelect.addEventListener('change', changePuzzleSize);
+    cheatBtn.addEventListener('click', cheat);
 });
