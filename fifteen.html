@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 Puzzle Game</title>
-    <link rel="stylesheet" href="puzzle.css">
-</head>
-<body>
-    <div id="puzzle-container"></div>
-    <script src="puzzle.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Puzzle Game</title>
+        <link rel="stylesheet" href="puzzle.css">
+    </head>
+    <body>
+        <h1 class="h1">Puzzle Game</h1>
+        <div id="button-container">
+            <select id="puzzle-size">
+                <option value="3">3x3</option>
+                <option value="4" selected>4x4</option>
+                <option value="6">6x6</option>
+                <option value="8">8x8</option>
+                <option value="10">10x10</option>
+            </select>
+            <button id="play-game-btn">Play Game</button>
+        </div>
+        <div id="puzzle-container"></div>
+        <script src="puzzle.js"></script>
+    </body>
 </html>
