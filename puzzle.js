@@ -4,18 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const puzzleSizeSelect = document.getElementById('puzzle-size');
     const buttonContainer = document.getElementById('button-container');
 
-    let puzzleSize = 4; // Default puzzle size
+    let puzzleSize = 4;
     let tiles = [];
-    let emptyIndex = puzzleSize * puzzleSize - 1; // Index for the empty space
+    let emptyIndex = puzzleSize * puzzleSize - 1;
+    let moveCount = 0;
 
-    // Function to change puzzle size
     const changePuzzleSize = () => {
-        puzzleSize = parseInt(puzzleSizeSelect.value);
-        emptyIndex = puzzleSize * puzzleSize - 1; // Update empty index
+        puzzleSize = parseInt(puzzleSizeSelect.value, 10);
+        emptyIndex = puzzleSize * puzzleSize - 1;
         createTiles();
     };
 
-    // Function to shuffle the array
     const shuffleArray = array => {
         for (let i = array.length - 2; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Function to check if the puzzle is solvable
     const isSolvable = arr => {
         let inversionCount = 0;
 
@@ -35,11 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Check if the inversion count is even for a solvable puzzle
         return inversionCount % 2 === 0;
     };
 
-    // Function to create initial tiles with solvability check
     const createTiles = () => {
         do {
             tiles = Array.from({ length: puzzleSize * puzzleSize }, (_, i) => i);
@@ -47,21 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
         } while (!isSolvable(tiles));
 
         updateTiles();
-        buttonContainer.style.display = 'none'; // Hide the button container
+        buttonContainer.style.display = 'none';
     };
 
-    // Function to handle tile click
     const handleTileClick = index => {
         if (isMovable(index)) {
             // Move the empty space into the number tile
             tiles[emptyIndex] = tiles[index];
             tiles[index] = puzzleSize * puzzleSize - 1; // Set the current index to the empty space
             emptyIndex = index;
+            
+            moveCount++; // Increment the move count before updating tiles
             updateTiles();
         }
-    };
+    };    
 
-    // Function to check if a tile is movable
     const isMovable = index => {
         const row = Math.floor(index / puzzleSize);
         const emptyRow = Math.floor(emptyIndex / puzzleSize);
@@ -70,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return isAdjacentRow || isAdjacentColumn;
     };
 
-    // Function to update the tiles display
     const updateTiles = () => {
         puzzleContainer.innerHTML = '';
 
@@ -92,11 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
             puzzleContainer.appendChild(tile);
         }
 
-        // Set the grid template columns based on the puzzle size
         puzzleContainer.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
+
+        const moveCountElement = document.getElementById('moveCount');
+        moveCountElement.textContent = `Moves: ${moveCount}`;
     };
 
-    // Add event listeners
     playGameBtn.addEventListener('click', createTiles);
     puzzleSizeSelect.addEventListener('change', changePuzzleSize);
 });
