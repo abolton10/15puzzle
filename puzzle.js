@@ -1,20 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     const puzzleContainer = document.getElementById('puzzle-container');
     const playGameBtn = document.getElementById('play-game-btn');
+    const shuffleBtn = document.getElementById('shuffle-btn');
     const puzzleSizeSelect = document.getElementById('puzzle-size');
     const buttonContainer = document.getElementById('button-container');
-    const cheatBtn = document.getElementById('cheat-btn');
+    const moveCountElement = document.getElementById('moveCount');
+    const bgMusic = document.getElementById('bgMusic');
 
     let puzzleSize = 4;
     let tiles = [];
     let emptyIndex = puzzleSize * puzzleSize - 1;
     let moveCount = 0;
+    let timer;
+    let startTime;
 
     const changePuzzleSize = () => {
         puzzleSize = parseInt(puzzleSizeSelect.value, 10);
         emptyIndex = puzzleSize * puzzleSize - 1;
         createTiles();
-        cheatBtn.style.display = 'block';
     };
 
     const shuffleArray = array => {
@@ -45,20 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         } while (!isSolvable(tiles));
 
         updateTiles();
-        buttonContainer.style.display = 'none';
+
+        // Show the button container
+        buttonContainer.style.display = 'block';
+        shuffleBtn.style.display = 'inline-block';
+        startTimer();
     };
 
     const handleTileClick = index => {
         if (isMovable(index)) {
-            // Move the empty space into the number tile
             tiles[emptyIndex] = tiles[index];
-            tiles[index] = puzzleSize * puzzleSize - 1; // Set the current index to the empty space
+            tiles[index] = puzzleSize * puzzleSize - 1;
             emptyIndex = index;
-            
-            moveCount++; // Increment the move count before updating tiles
+            moveCount++;
             updateTiles();
+
+            if (checkWin()) {
+                stopTimer();
+                displayResults();
+            }
         }
-    };    
+    };
 
     const isMovable = index => {
         const row = Math.floor(index / puzzleSize);
@@ -75,34 +85,86 @@ document.addEventListener('DOMContentLoaded', () => {
             const tileIndex = tiles[i];
             const tile = document.createElement('div');
             tile.classList.add('tile');
-            tile.textContent = tileIndex === puzzleSize * puzzleSize - 1 ? '' : tileIndex + 1;
+
+            // Check if it's the empty tile
+            if (tileIndex === puzzleSize * puzzleSize - 1) {
+                tile.classList.add('empty');
+            } else {
+                const image = document.createElement('img');
+                image.src = getImagePath(tileIndex + 1, puzzleSize);
+                tile.appendChild(image);
+            }
+
             tile.addEventListener('click', () => handleTileClick(i));
 
             if (tileIndex === i) {
                 tile.classList.add('in-right-area');
             }
 
-            if (tileIndex === puzzleSize * puzzleSize - 1) {
-                tile.classList.add('empty');
-            }
-
             puzzleContainer.appendChild(tile);
         }
 
         puzzleContainer.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
-
-        const moveCountElement = document.getElementById('moveCount');
         moveCountElement.textContent = `Moves: ${moveCount}`;
     };
 
-    //Cheat Button 
-    const cheat = () => {
-        tiles = Array.from({ length: puzzleSize * puzzleSize }, (_, i) => i);
-        emptyIndex = puzzleSize * puzzleSize - 1;
-        updateTiles();
+    const getImagePath = (number, size) => {
+        return `images/${size}x${size}/${number}.jpg`;
+    };    
+
+    const startTimer = () => {
+        startTime = new Date().getTime();
+        timer = setInterval(updateTimer, 1000);
     };
 
-    playGameBtn.addEventListener('click', createTiles);
+    const updateTimer = () => {
+        const currentTime = new Date().getTime();
+        const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+        document.getElementById('timer').textContent = `Time: ${elapsedTime} seconds`;
+    };
+
+    const stopTimer = () => {
+        clearInterval(timer);
+    };
+
+    const checkWin = () => {
+        for (let i = 0; i < tiles.length - 1; i++) {
+            if (tiles[i] !== i) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+    const shuffleTiles = () => {
+        const tilesWithoutEmpty = tiles.filter(tile => tile !== puzzleSize * puzzleSize - 1);
+        shuffleArray(tilesWithoutEmpty);
+
+        let index = 0;
+        for (let i = 0; i < tiles.length; i++) {
+            if (tiles[i] !== puzzleSize * puzzleSize - 1) {
+                tiles[i] = tilesWithoutEmpty[index];
+                index++;
+            }
+        }
+
+        moveCount = 0;
+        updateTiles();
+        startTimer();
+    };
+
+    playGameBtn.addEventListener('click', () => {
+        createTiles();
+        bgMusic.play();
+        buttonContainer.style.display = 'none';
+        shuffleBtn.style.display = 'inline-block';
+    });
+
+    shuffleBtn.addEventListener('click', shuffleTiles);
     puzzleSizeSelect.addEventListener('change', changePuzzleSize);
-    cheatBtn.addEventListener('click', cheat);
 });
+
+document.getElementById('bgMusic').addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
