@@ -144,6 +144,22 @@ h1 {
     grid-gap: 5px;
     transition: transform 1s ease-in-out;
 }
+#shuffle-btn{
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    text-align: center;
+}
+#moves-container {
+    text-align: center;
+    margin-bottom: 10px;
+}
 
 .tile {
     display: flex;
@@ -174,6 +190,26 @@ h1 {
     font-weight: bolder;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.tile.initial-animation {
+    animation: initialBounce 0.5s ease-in-out;
+}
+@keyframes initialBounce {
+    0% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.game-started .tile {
+    background-color: rgba(58, 58, 217, 0.7); 
+}
+.tile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 10px;
+}
 #cheat-btn {
     padding: 10px 20px;
     font-size: 18px;
@@ -189,4 +225,3 @@ h1 {
 #cheat-btn:hover {
     background-color: #ff6699;
 }
-
