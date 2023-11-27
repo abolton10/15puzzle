@@ -137,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const shuffleTiles = () => {
+        if (!startTime) {
+            // Game hasn't started yet, start the timer
+            startTimer();
+        }
+
         const tilesWithoutEmpty = tiles.filter(tile => tile !== puzzleSize * puzzleSize - 1);
         shuffleArray(tilesWithoutEmpty);
 
@@ -148,9 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        moveCount = 0;
         updateTiles();
-        startTimer();
     };
 
     playGameBtn.addEventListener('click', () => {
