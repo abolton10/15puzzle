@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonContainer = document.getElementById('button-container');
     const moveCountElement = document.getElementById('moveCount');
     const bgMusic = document.getElementById('bgMusic');
-     HEAD
+    
     const imageUrl = 'images/background.png';
 
     document.body.style.backgroundImage = `url('${imageUrl}')`;    
