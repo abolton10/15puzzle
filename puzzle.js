@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonContainer = document.getElementById('button-container');
     const moveCountElement = document.getElementById('moveCount');
     const bgMusic = document.getElementById('bgMusic');
+    const imageUrl = 'images/background.png';
+
+    document.body.style.backgroundImage = `url('${imageUrl}')`;    
 
     let puzzleSize = 4;
     let tiles = [];
