@@ -6,13 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonContainer = document.getElementById('button-container');
     const moveCountElement = document.getElementById('moveCount');
     const bgMusic = document.getElementById('bgMusic');
-<<<<<<< HEAD
+     HEAD
     const imageUrl = 'images/background.png';
 
     document.body.style.backgroundImage = `url('${imageUrl}')`;    
-=======
     const cheatBtn = document.getElementById('cheat-btn');
->>>>>>> dfc67c4 (cheat button WIP + pop up)
 
     let puzzleSize = 4;
     let tiles = [];
