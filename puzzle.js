@@ -6,9 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonContainer = document.getElementById('button-container');
     const moveCountElement = document.getElementById('moveCount');
     const bgMusic = document.getElementById('bgMusic');
+<<<<<<< HEAD
     const imageUrl = 'images/background.png';
 
     document.body.style.backgroundImage = `url('${imageUrl}')`;    
+=======
+    const cheatBtn = document.getElementById('cheat-btn');
+>>>>>>> dfc67c4 (cheat button WIP + pop up)
 
     let puzzleSize = 4;
     let tiles = [];
@@ -16,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let moveCount = 0;
     let timer;
     let startTime;
+
+    const displayResults = () => {
+        const currentTime = new Date().getTime();
+        const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+        alert(`Congratulations! You finished the puzzle in ${elapsedTime} seconds and ${moveCount} moves.`);
+    };
 
     const changePuzzleSize = () => {
         puzzleSize = parseInt(puzzleSizeSelect.value, 10);
@@ -159,6 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTiles();
     };
 
+    const cheat = () => {
+        // Arrange tiles in solved order
+        for (let i = 0; i < puzzleSize * puzzleSize - 1; i++) {
+            tiles[i] = i;
+        }
+        emptyIndex = puzzleSize * puzzleSize - 1; // The last tile should be the empty one
+
+        // Update UI to reflect the solved state
+        updateTiles();
+
+        // Stop the timer and display the results
+        stopTimer();
+        displayResults();
+    };
+
+    cheatBtn.addEventListener('click', cheat);
+
     playGameBtn.addEventListener('click', () => {
         createTiles();
         bgMusic.play();
@@ -174,3 +201,4 @@ document.getElementById('bgMusic').addEventListener('ended', function() {
     this.currentTime = 0;
     this.play();
 }, false);
+
