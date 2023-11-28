@@ -1,13 +1,16 @@
-body {
+html,body {
+    height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #353333;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 h1 {
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: pink;
+    color: blue;
     overflow: hidden; /* Hide the overflow to prevent flickering */
 }
 
@@ -121,7 +124,7 @@ h1 {
 #puzzle-size {
     padding: 10px 20px;
     font-size: 18px;
-    background-color: pink;
+    background-color: blue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -132,7 +135,7 @@ h1 {
 
 #play-game-btn:hover,
 #puzzle-size:hover {
-    background-color: #ff6699; 
+    background-color: darkblue; 
 }
 
 #puzzle-container {
@@ -147,7 +150,7 @@ h1 {
 #shuffle-btn{
     padding: 10px 20px;
     font-size: 18px;
-    background-color: pink;
+    background-color: blue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -165,7 +168,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(58, 58, 217);
+    background-color: darkblue;
     color: whitesmoke;
     font-size: 24px;
     font-weight: bold;
@@ -174,17 +177,17 @@ h1 {
 }
 
 .tile.in-right-area {
-    background-color: pink; 
+    background-color: blue; 
     color: whitesmoke;
 }
 
 .tile.empty {
-    background-color: #1e1e8a;
+    background-color: darkblue;
     border-radius: 10px;
 }
 .moveCount {
     text-align: center;
-    color:pink;
+    color:blue;
     font-size: 2em;
     margin-top: 10px;
     font-weight: bolder;
@@ -213,7 +216,7 @@ h1 {
 #cheat-btn {
     padding: 10px 20px;
     font-size: 18px;
-    color: white;
+    color: blue;
     background-color: #ff4500;
     border: none;
     border-radius: 5px;
@@ -223,5 +226,5 @@ h1 {
 }
 
 #cheat-btn:hover {
-    background-color: #ff6699;
+    background-color: darkblue;
 }
