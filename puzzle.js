@@ -72,32 +72,14 @@ document.addEventListener("DOMContentLoaded", function() {
             tiles[index] = puzzleSize * puzzleSize - 1;
             emptyIndex = index;
             moveCount++;
-    
-            // Add a smooth transition effect to move the tile
-            const tileElement = document.querySelector(`.tile:nth-child(${index + 1})`);
-            tileElement.style.transition = 'transform 0.5s ease-in-out';
-            tileElement.style.transform = getTileTransform(index);
-    
-            setTimeout(() => {
-                tileElement.style.transition = ''; // Clear the transition after animation
-                updateTiles();
-    
-                if (checkWin()) {
-                    stopTimer();
-                    displayResults();
-                }
-            }, 500); // Adjust the timeout to match the transition duration
+            updateTiles();
+
+            if (checkWin()) {
+                stopTimer();
+                displayResults();
+            }
         }
     }
-    
-    function getTileTransform(index) {
-        const row = Math.floor(index / puzzleSize);
-        const col = index % puzzleSize;
-        const translateX = col * 100;
-        const translateY = row * 100;
-        return `translate(${translateX}%, ${translateY}%)`;
-    }
-    
 
     function isMovable(index) {
         const row = Math.floor(index / puzzleSize);
@@ -194,17 +176,17 @@ document.addEventListener("DOMContentLoaded", function() {
     function giveUp() {
         // Stop the timer
         stopTimer();
-
+    
         // Shuffle tiles to a solvable state
         shuffleTiles();
-
+    
         // Move tiles back to their sorted state
         const sortedTiles = Array.from({ length: puzzleSize * puzzleSize }, (_, i) => i);
         emptyIndex = puzzleSize * puzzleSize - 1;
-
+    
         tiles = sortedTiles.slice();
         updateTiles();
-
+    
         // Display the solution by shuffling tiles until it solves with animation
         const animateSolution = (index) => {
             if (index < tiles.length && !checkWin()) {
@@ -215,41 +197,33 @@ document.addEventListener("DOMContentLoaded", function() {
                 displayResults();
             }
         };
-
+    
         // Start animating the solution
         animateSolution(0);
     }
-
+    
     function updateTilesWithAnimation(index) {
         const tileElements = document.querySelectorAll('.tile');
         const tileIndex = tiles[index];
         const tileElement = tileElements[index];
-        const targetRow = getRow(tileIndex);
-        const targetCol = getCol(tileIndex);
-
-        const moveTile = () => {
-            const currentRow = getRow(index);
-            const currentCol = getCol(index);
-
-            const diffRow = targetRow - currentRow;
-            const diffCol = targetCol - currentCol;
-
-            const step = 0.1; // Adjust the step size for smoother animation
-
-            const newRow = currentRow + step * diffRow;
-            const newCol = currentCol + step * diffCol;
-
-            tileElement.style.transform = `translate(${newCol * 100}%, ${newRow * 100}%)`;
-
-            if (Math.abs(newRow - targetRow) > 0.01 || Math.abs(newCol - targetCol) > 0.01) {
-                requestAnimationFrame(moveTile);
-            } else {
-                tileElement.style.transform = ''; // Clear the transform once the animation is complete
-            }
-        };
-
-        moveTile();
+    
+        tileElement.style.transition = 'transform 0.5s ease-in-out';
+        tileElement.style.transform = `translate(${getCol(tileIndex) * 100}%, ${getRow(tileIndex) * 100}%)`;
+    
+        // Wait for the transition to complete before removing the transition property
+        setTimeout(() => {
+            tileElement.style.transition = '';
+        }, 500);
     }
+    
+    function getRow(index) {
+        return Math.floor(index / puzzleSize);
+    }
+    
+    function getCol(index) {
+        return index % puzzleSize;
+    }
+    
     
     
     playGameBtn.addEventListener("click", function() {
