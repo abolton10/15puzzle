@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let timer;
     let startTime;
 
+    const displayResults = () => {
+        const currentTime = new Date().getTime();
+        const elapsedTime = Math.floor((currentTime - startTime) / 1000);
+        alert(`Congratulations! You finished the puzzle in ${elapsedTime} seconds and ${moveCount} moves.`);
+    };
+
     function changePuzzleSize() {
         puzzleSize = parseInt(puzzleSizeSelect.value, 10);
         emptyIndex = puzzleSize * puzzleSize - 1;
