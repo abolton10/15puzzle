@@ -35,7 +35,7 @@
         </h1>
         <audio id="bgMusic" loop>
             <source src = "gamemusic.mp3" type = "audio/mpeg">
-        </audio> 
+        </audio>      
         <div id="button-container">
             <select id="puzzle-size">
                 <option value="3">3x3</option>
@@ -49,11 +49,9 @@
             <div id="timer" class="moveCount">Time: 0 seconds</div>
             <div id="moveCount" class="moveCount">Moves: 0</div>
             <button id="shuffle-btn" style="display: none;">Shuffle</button>
-            <button id="cheat-btn" style="display: inline-block;">Cheat</button>
-        </div>
+            <button id="give-up-btn" style="display: none;">Give Up</button>
         </div>        
         <div id="puzzle-container"></div>
-        <button id="cheat-btn" style="display: none;">Give Up?</button>
         <script src="puzzle.js"></script>
     </body>
 </html>
