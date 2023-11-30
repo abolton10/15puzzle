@@ -66,20 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer();
     };
 
-    const handleTileClick = index => {
-        if (isMovable(index)) {
-            tiles[emptyIndex] = tiles[index];
-            tiles[index] = puzzleSize * puzzleSize - 1;
-            emptyIndex = index;
-            moveCount++;
+const handleTileClick(index) {
+    if (isMovable(index)) {
+        tiles[emptyIndex] = tiles[index];
+        tiles[index] = puzzleSize * puzzleSize - 1;
+        emptyIndex = index;
+        moveCount++;
+
+        // Add a spin transition effect to move the tile
+        const tileElement = document.querySelector(`.tile:nth-child(${index + 1})`);
+        tileElement.style.transition = 'transform 0.5s ease-in-out';
+        tileElement.style.transform = 'rotate(360deg)';
+
+        setTimeout(() => {
+            tileElement.style.transition = ''; // Clear the transition after animation
+            tileElement.style.transform = '';
             updateTiles();
 
             if (checkWin()) {
                 stopTimer();
                 displayResults();
             }
-        }
-    };
+        }, 500); // Adjust the timeout to match the transition duration
+    }
+}
+
 
     const isMovable = index => {
         const row = Math.floor(index / puzzleSize);
